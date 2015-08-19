@@ -1,0 +1,4 @@
+class_name: FunctionalTestTester
+modules:
+    enabled:
+        - \T4webTranslateTest\Helper\FunctionalTest

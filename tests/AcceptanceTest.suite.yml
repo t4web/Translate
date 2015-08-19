@@ -1,0 +1,4 @@
+class_name: AcceptanceTestTester
+modules:
+    enabled:
+        - \T4webTranslateTest\Helper\AcceptanceTest

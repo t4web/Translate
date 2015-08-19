@@ -1,0 +1,4 @@
+class_name: UnitTestTester
+modules:
+    enabled:
+        - \T4webTranslateTest\Helper\UnitTest
