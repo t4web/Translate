@@ -21,7 +21,7 @@ class WordController extends AbstractActionController
     public function editAction(Params $params, Finder $finder, Form $form, View $view)
     {
 
-        $entity = $finder->find(['Translate' => ['Words' => ['Id' => (int)$params('id')]]]);
+        $entity = $finder->find(['T4webTranslate' => ['Words' => ['Id' => (int)$params('id')]]]);
         if ($entity) {
             $view->setEntity($entity);
             $form->populateValues($entity->extract());

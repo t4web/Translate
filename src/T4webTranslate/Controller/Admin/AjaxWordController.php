@@ -35,7 +35,7 @@ class AjaxWordController extends AbstractActionController
 
         $id = $params('id');
 
-        $entity = $finderService->find(['Translate' => ['Words' => ['Id' => (int)$id]]]);
+        $entity = $finderService->find(['T4webTranslate' => ['Words' => ['Id' => (int)$id]]]);
         if (!$entity) {
             $response->setStatusCode(Response::STATUS_CODE_404);
             $view->setErrors(['message' => 'bad params']);
