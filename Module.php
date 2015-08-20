@@ -149,8 +149,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
             $codes
         );
 
-        $uri = str_replace($codes, '/', $uri->getPath());
-        $uri = str_replace(['//'], '/', $uri);
+        $path = str_replace($codes, '/', $uri->getPath());
+        $path = str_replace(['//'], '/', $path);
+        
+        $uri->setPath($path);
 
         $e->getRequest()->setUri($uri);
     }
