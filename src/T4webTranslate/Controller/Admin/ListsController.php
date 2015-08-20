@@ -42,10 +42,10 @@ class ListsController extends AbstractActionController
     private function buildCriteria(array $data)
     {
 
-        $criteria = ['Translate' => ['Words' => ['Order' => 'key ASC']]];
+        $criteria = ['T4webTranslate' => ['Words' => ['Order' => 'key ASC']]];
         foreach ($data as $key => $value) {
             if (!empty($value)) {
-                $criteria['Translate']['Words'][$key] = $value;
+                $criteria['T4webTranslate']['Words'][$key] = $value;
             }
         }
 

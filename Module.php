@@ -126,7 +126,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
 
                 /** @var BaseFinder $finder */
                 $languagesFinder = $e->getApplication()->getServiceManager()->get('T4webTranslate\Languages\Service\Finder');
-                $language = $languagesFinder->find(['Translate' => ['Languages' => ['Id' => $langId]]]);
+                $language = $languagesFinder->find(['T4webTranslate' => ['Languages' => ['Id' => $langId]]]);
                 $translator->setLocale($language->getLocale());
             }
 
