@@ -1,0 +1,8 @@
+.translate.default-entity {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #f4f4f4;
+    color: #444;
+    font-size: 12px;
+    margin-top: 5px;
+    padding: 6px 12px;
+}
