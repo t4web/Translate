@@ -1,0 +1,9 @@
+<ul>
+    <?php foreach($collection as $entity): ?>
+        <li class="<?= ($entity->getLocale() == $locale) ? 'active' : ''; ?>">
+            <a class="" href="<?= $this->url($route, ['locale' => $entity->getCode()], [], true); ?>">
+                <?= $this->translate($entity->getName()); ?>
+            </a>
+        </li>
+    <?php endforeach; ?>
+</ul>

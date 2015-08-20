@@ -1,0 +1,137 @@
+<?php /* @var \T4webTranslate\Controller\ViewModel\Admin\ListViewModel $viewModel */ ?>
+<?php $viewModel = $this->viewModel()->getCurrent(); ?>
+
+<section class="content-header">
+    <h1>
+        <i class="fa fa-language"></i>
+        Переводы
+    </h1>
+</section>
+
+<section class="content">
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                <i class="fa fa-filter"></i>
+                Фильтр </h3>
+
+            <div class="box-tools pull-right">
+                <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+
+        <form method="query">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group <?= ($viewModel->getFilter('key')->getMessages()) ? 'has-error' : ''; ?>">
+                            <label><?= $viewModel->getFilter('key')->getLabel(); ?></label>
+
+                            <?= $this->formText(
+                                $viewModel->getFilter('key')
+                                    ->setAttributes([
+                                        'class' => 'form-control',
+                                    ])
+                            ); ?>
+
+                            <?= $this->formElementErrors($viewModel->getFilter('key'), ['class' => 'help-block']); ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group <?= ($viewModel->getFilter('langId')->getMessages()) ? 'has-error' : ''; ?>">
+                            <label><?= $viewModel->getFilter('langId')->getLabel(); ?></label>
+
+                            <?= $this->formSelect(
+                                $viewModel->getFilter('langId')
+                                    ->setAttributes([
+                                        'class' => 'form-control select2',
+                                        'style' => 'width: 100%',
+                                    ])
+                            ); ?>
+
+                            <?= $this->formElementErrors($viewModel->getFilter('langId'), ['class' => 'help-block']); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer text-right">
+                <a class="btn btn-default" href="<?= $this->url('admin-translate-words'); ?>">Сбросить фильтр</a>
+                <button type="submit" class="btn btn-primary">Поиск</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="box-body text-right">
+        <a class="btn btn-labeled btn-primary btn-sm" href="<?= $this->url('admin-translate-word'); ?>">
+            <i class="btn-label fa fa-plus"></i>
+            Добавить новый перевод
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <?php if ($viewModel->getCollection() && $viewModel->getCollection()->count()): ?>
+                        <div id="example1_wrapper" class="form-inline dt-bootstrap">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-striped dataTable">
+                                        <thead>
+                                        <tr>
+                                            <th>Ключ</th>
+                                            <th>Перевод</th>
+                                            <th width="250"></th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                        <?php foreach ($viewModel->getCollection() as $entity): ?>
+
+                                            <tr role="row" class="<?= $this->cycle(['odd', 'even'])->next(); ?>">
+                                                <td>
+                                                    <input type="text" name="key" value="<?= $entity->getKey(); ?>" class="form-control" style="width: 100%">
+                                                    <input type="hidden" name="id" value="<?= $entity->getId(); ?>">
+                                                    <input type="hidden" name="langId" value="<?= $entity->getLangId(); ?>">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="translate" value="<?= $entity->getTranslate(); ?>" class="form-control" style="width: 100%">
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-sm btn-primary save-word">
+                                                            <i class="fa fa-save"></i>&nbsp;
+                                                            Сохранить
+                                                        </button>
+                                                        <a type="button" class="btn btn-sm btn-danger"
+                                                           href="<?= $this->url(
+                                                               'admin-translate-word-delete',
+                                                               ['id' => $entity->getId()], ['query' => $viewModel->getPageParams()]
+                                                           ); ?>">
+                                                            <i class="fa fa-trash-o"></i>&nbsp;
+                                                            Удалить
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-right">
+                                        <?= $this->adminPaginator($viewModel->getPageParams()); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <h3>Записи не найдены</h3>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

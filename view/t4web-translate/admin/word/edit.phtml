@@ -1,0 +1,85 @@
+<?php /* @var \T4webTranslate\Controller\ViewModel\Admin\EntityViewModel $viewModel */ ?>
+<?php $viewModel = $this->viewModel()->getCurrent(); ?>
+
+<section class="content-header">
+    <h1>
+        <i class="fa fa-language"></i>
+        Новый перевод
+    </h1>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        Новый перевод
+                    </h3>
+                </div>
+
+                <form class="form-horizontal" action="<?= $this->url('admin-translate-word-save'); ?>" method="post">
+                    <?= $this->formHidden($viewModel->getFormElement('id')); ?>
+
+                    <div class="box-body" <?= ($viewModel->getFormElement('langId')->getMessages()) ? 'has-error' : ''; ?>">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="langId">
+                                <?= $viewModel->getFormElement('langId')->getLabel(); ?>
+                            </label>
+
+                            <div class="col-sm-3">
+                                <?= $this->formSelect(
+                                    $viewModel->getFormElement('langId')
+                                        ->setAttributes([
+                                            'class' => 'form-control',
+                                        ])
+                                ); ?>
+
+                                <?= $this->formElementErrors($viewModel->getFormElement('langId'), array('class' => 'help-block')); ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group <?= ($viewModel->getFormElement('key')->getMessages()) ? 'has-error' : ''; ?>">
+                            <label class="col-sm-2 control-label" for="key">
+                                <?= $viewModel->getFormElement('key')->getLabel(); ?>
+                            </label>
+
+                            <div class="col-sm-10">
+                                <?= $this->formText(
+                                    $viewModel->getFormElement('key')
+                                        ->setAttributes([
+                                            'class' => 'form-control',
+                                        ])
+                                ); ?>
+
+                                <?= $this->formElementErrors($viewModel->getFormElement('key'), array('class' => 'help-block')); ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group <?= ($viewModel->getFormElement('translate')->getMessages()) ? 'has-error' : ''; ?>">
+                            <label class="col-sm-2 control-label" for="translate">
+                                <?= $viewModel->getFormElement('translate')->getLabel(); ?>
+                            </label>
+
+                            <div class="col-sm-10">
+                                <?= $this->formText(
+                                    $viewModel->getFormElement('translate')
+                                        ->setAttributes([
+                                            'class' => 'form-control',
+                                        ])
+                                ); ?>
+
+                                <?= $this->formElementErrors($viewModel->getFormElement('translate'), array('class' => 'help-block')); ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-footer">
+                        <button class="btn btn-primary" type="submit">Сохранить</button>
+                        <a href="<?= $this->url('admin-translate-words'); ?>" class="btn btn-default" type="submit">Назад к списку</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

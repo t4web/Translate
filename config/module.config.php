@@ -146,7 +146,7 @@ return [
     ],
     'db' => [
         'tables' => [
-            'translate-words' => [
+            't4webtranslate-words' => [
                 'name' => 'words',
                 'columnsAsAttributesMap' => [
                     'id' => 'id',
@@ -155,7 +155,7 @@ return [
                     'translate' => 'translate',
                 ],
             ],
-            'translate-languages' => [
+            't4webtranslate-languages' => [
                 'name' => 'languages',
                 'columnsAsAttributesMap' => [
                     'id' => 'id',
@@ -165,7 +165,7 @@ return [
                     'default' => 'default',
                 ],
             ],
-            'translate-category' => [
+            't4webtranslate-category' => [
                 'name' => 'categories_tr',
                 'columnsAsAttributesMap' => [
                     'id' => 'id',
@@ -174,7 +174,7 @@ return [
                     'name' => 'name',
                 ],
             ],
-            'translate-single' => [
+            't4webtranslate-single' => [
                 'name' => 'params_tr',
                 'columnsAsAttributesMap' => [
                     'id' => 'id',
@@ -183,7 +183,7 @@ return [
                     'name' => 'name',
                 ],
             ],
-            'translate-value' => [
+            't4webtranslate-value' => [
                 'name' => 'params_values_tr',
                 'columnsAsAttributesMap' => [
                     'id' => 'id',
