@@ -32,11 +32,13 @@ class WordKey extends Text
 
     public function isValid($context = null)
     {
-        $clause[] = 'lang_id = ' . $context['langId'];
+        $clause[] = "`lang_id` = '{$context['langId']}'";
+        $clause[] = "BINARY `key` = '{$context['key']}'" ;
 
         if (isset($context['id']) && !empty($context['id'])) {
             $clause[] = 'id <> ' . $context['id'];
         }
+
         $this->dbNoRecordExistsValidator->setExclude(implode(' AND ', $clause));
 
         return parent::isValid($context);

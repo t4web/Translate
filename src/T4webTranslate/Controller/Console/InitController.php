@@ -67,6 +67,7 @@ class InitController extends AbstractActionController
         $sql = new Sql($this->dbAdapter);
 
         $this->dbAdapter->query($sql->buildSqlString($table), Adapter::QUERY_MODE_EXECUTE);
+        $this->dbAdapter->query("ALTER TABLE {$this->tableName} CHANGE `key` `key` VARCHAR(255) BINARY CHARACTER SET utf8 COLLATE utf8_general_ci;");
     }
 
     private function createTableLanguages()

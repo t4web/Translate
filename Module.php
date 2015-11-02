@@ -68,7 +68,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
 
         /** @var \Zend\Uri\Http $uri */
         $uri = $e->getRequest()->getUri();
-        if (false !== strpos($uri->getPath(), '/admin')) {
+        if (0 === strpos($uri->getPath(), '/admin')) {
             $translator->setLocale('ru_UA');
             // admin default locale use in create
             $translator->setFallbackLocale('ru_UA');
@@ -104,7 +104,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
         /** @var \Zend\I18n\Translator\Translator $translator */
         $translator = $e->getApplication()->getServiceManager()->get('MvcTranslator');
 
-        if (false !== strpos($uri->getPath(), '/admin')) {
+        if (0 === strpos($uri->getPath(), '/admin')) {
             if($e->getRequest()->isXmlHttpRequest()) {
                 /** @var Referer $referer */
                 $referer = $e->getRequest()->getHeader('Referer');
@@ -134,9 +134,16 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
         }
 
         $codes = $translator->getLanguages()->getCodes();
+        $uriPath = $uri->getPath();
+
+        if($e->getRequest()->isXmlHttpRequest()) {
+            /** @var Referer $referer */
+            $referer = $e->getRequest()->getHeader('Referer');
+            $uriPath = $referer->uri()->getPath();
+        }
 
         // get code from uri
-        preg_match('/' . implode('|', $codes) . '/', $uri->getPath(), $code);
+        preg_match('/' . implode('|', $codes) . '/', $uriPath, $code);
         if (!empty($code) && isset($code[0])) {
             $translator->setLocale($translator->getLanguages()->getLocaleByCode($code[0]));
         }
@@ -151,7 +158,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
 
         $path = str_replace($codes, '/', $uri->getPath());
         $path = str_replace(['//'], '/', $path);
-        
+
         $uri->setPath($path);
 
         $e->getRequest()->setUri($uri);
@@ -361,6 +368,15 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
             'factories' => [
                 'languages' => 'T4webTranslate\Factory\View\Helper\LanguagesFactory',
                 'entityTr' => 'T4webTranslate\Factory\View\Helper\EntityTrFactory',
+            ],
+        ];
+    }
+
+    public function getControllerPluginConfig()
+    {
+        return [
+            'factories' => [
+                'redirect' => 'T4webTranslate\Factory\Controller\Plugin\RedirectFactory',
             ],
         ];
     }
